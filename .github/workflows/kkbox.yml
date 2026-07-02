@@ -1,0 +1,38 @@
+name: kkbox-worker
+
+on:
+  workflow_dispatch:
+
+
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        pip install requests pytz python-telegram-bot PyGithub paddleocr paddlepaddle pillow
+
+    - name: Clone private repo
+      env:
+        TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
+      run: |
+        git clone https://x-access-token:${TOKEN}@github.com/oneerao-commits/cuddly-chainsaw
+
+    - name: Run scanner
+      env:
+        github_token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+        bot_token: ${{ secrets.BOT_TOKEN }}
+      run: |
+        cd kkbox
+        python kkbox.py

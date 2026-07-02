@@ -1,0 +1,38 @@
+name: kkbox-dispatcher
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 10 * * *'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: kkbox-dispatcher
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Trigger worker
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh workflow run kkbox.yml --ref main
+
+    - name: Wait
+      run: sleep 3600
+
+    - name: Trigger myself again
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh workflow run dispatcher.yml --ref main
