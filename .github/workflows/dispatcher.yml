@@ -3,7 +3,7 @@ name: kkbox-dispatcher
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/30 10 * * *'
+    - cron: '30 10 * * *'
 
 permissions:
   contents: write
@@ -26,13 +26,13 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        gh workflow run kkbox.yml --ref main
+        gh workflow run kkbox.yml --ref master
 
-    - name: Wait
-      run: sleep 3600
+#    - name: Wait
+#      run: sleep 3600
 
-    - name: Trigger myself again
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        gh workflow run dispatcher.yml --ref main
+#    - name: Trigger myself again
+#      env:
+#        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      run: |
+#        gh workflow run dispatcher.yml --ref master
