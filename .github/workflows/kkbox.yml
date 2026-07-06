@@ -32,5 +32,5 @@ jobs:
         github_token: ${{ secrets.PRIVATE_REPO_TOKEN }}
         bot_token: ${{ secrets.BOT_TOKEN }}
       run: |
-        cd kkbox
+        cd cuddly-chainsaw
         python kkbox.py
