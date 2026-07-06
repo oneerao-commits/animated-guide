@@ -3,8 +3,6 @@ name: kkbox-worker
 on:
   workflow_dispatch:
 
-
-
 jobs:
   scan:
     runs-on: ubuntu-latest
