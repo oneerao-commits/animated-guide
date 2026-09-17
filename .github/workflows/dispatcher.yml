@@ -28,11 +28,11 @@ jobs:
       run: |
         gh workflow run kkbox.yml --ref master
 
-#    - name: Wait
-#      run: sleep 3600
+    - name: Wait
+      run: sleep 3600
 
-#    - name: Trigger myself again
-#      env:
-#        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      run: |
-#        gh workflow run dispatcher.yml --ref master
+    - name: Trigger myself again
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh workflow run dispatcher.yml --ref master
