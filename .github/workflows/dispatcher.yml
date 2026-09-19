@@ -29,7 +29,7 @@ jobs:
         gh workflow run kkbox.yml --ref master
 
     - name: Wait
-      run: sleep 3600
+      run: sleep 2400
 
     - name: Trigger myself again
       env:
